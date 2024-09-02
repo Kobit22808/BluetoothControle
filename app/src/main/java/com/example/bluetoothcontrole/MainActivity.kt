@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
 
         navigate(DevicesFragment.newInstance())
 
-        enableBluetooth()
+
     }
 
     private fun navigate(fragment: Fragment) {
@@ -24,24 +24,13 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
-    private fun enableBluetooth() {
-        requestEnableBluetooth.launch(Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE))
-    }
 
-    private val requestEnableBluetooth = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-        if (result.resultCode == RESULT_CANCELED) {
-            showEnableBluetoothMessage()
-        }
-    }
 
     private fun showEnableBluetoothMessage() {
         AlertDialog.Builder(this)
             .setTitle(getString(R.string.enable_bluetooth))
             .setMessage(getString(R.string.enable_bluetooth_message))
             .setPositiveButton(getString(R.string.ok)) { _, _ ->
-                enableBluetooth()
             }
             .setNegativeButton(getString(R.string.cancel)) { dialogInterface, _ ->
                 dialogInterface.dismiss()
